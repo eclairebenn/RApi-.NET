@@ -7,7 +7,7 @@ namespace RapperAPI.Controllers {
     
     public class ArtistController : Controller {
 
-        private List<Artist> allArtists;
+        public List<Artist> allArtists;
 
         public ArtistController() {
             allArtists = JsonToFile<Artist>.ReadJson();

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace RapperAPI.Controllers {
     public class GroupController : Controller {
         List<Group> allGroups {get; set;}
@@ -12,6 +13,13 @@ namespace RapperAPI.Controllers {
         [Route("groups")]
         [HttpGet]
         public JsonResult displayAll(){
+            ArtistController Artists = new ArtistController();
+            List<Artist> allArtists = Artists.allArtists;
+
+            foreach(Group group in allGroups)
+            {
+                group.Members = allArtists.Where(performer => performer.GroupId == group.Id).ToList();
+            }
 
             return Json(allGroups);
         }
