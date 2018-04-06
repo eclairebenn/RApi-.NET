@@ -9,5 +9,26 @@ namespace RapperAPI.Controllers {
             allGroups = JsonToFile<Group>.ReadJson();
         }
 
+        [Route("groups")]
+        [HttpGet]
+        public JsonResult displayAll(){
+
+            return Json(allGroups);
+        }
+
+        [Route("groups/name/{name}")]
+        [HttpGet]
+        public JsonResult groupName(string name){
+            List<Group> groupMatch = allGroups.Where(group => group.GroupName.Contains($"{name}")).ToList();
+            return Json(groupMatch);
+        }
+
+        [Route("groups/id/{id}")]
+        [HttpGet]
+        public JsonResult groupid(int id){
+            List<Group> groupMatch = allGroups.Where(group => group.Id == id).ToList();
+            return Json(groupMatch);
+        }
+
     }
 }

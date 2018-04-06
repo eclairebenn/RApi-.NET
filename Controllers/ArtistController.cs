@@ -13,6 +13,42 @@ namespace RapperAPI.Controllers {
             allArtists = JsonToFile<Artist>.ReadJson();
         }
 
+        [Route("artists")]
+        [HttpGet]
+        public JsonResult displayAll(){
+
+            return Json(allArtists);
+        }
+
+        [Route("artists/name/{name}")]
+        [HttpGet]
+        public JsonResult artistName(string name){
+            List<Artist> artistMatch = allArtists.Where(performer => performer.RealName.Contains($"{name}") || performer.ArtistName.Contains($"{name}")).ToList();
+            return Json(artistMatch);
+        }
+
+        [Route("artists/realname/{name}")]
+        [HttpGet]
+        public JsonResult artistRealName(string name){
+            List<Artist> artistMatch = allArtists.Where(performer => performer.RealName.Contains($"{name}")).ToList();
+            return Json(artistMatch);
+        }
+
+        [Route("artists/hometown/{town}")]
+        [HttpGet]
+        public JsonResult artistHomeTown(string town){
+            List<Artist> artistMatch = allArtists.Where(performer => performer.Hometown.Contains($"{town}")).ToList();
+            return Json(artistMatch);
+        }
+
+        [Route("artists/groupid/{id}")]
+        [HttpGet]
+        public JsonResult artistGroup(int id){
+            List<Artist> artistMatch = allArtists.Where(performer => performer.GroupId == id).ToList();
+            return Json(artistMatch);
+        }
+
+
         //This method is shown to the user navigating to the default API domain name
         //It just display some basic information on how this API functions
         [Route("")]
